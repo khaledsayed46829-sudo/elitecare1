@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Care Hospital | مستشفى النخبة الطبية</title>
+    <meta name="description" content="مستشفى النخبة الطبية - رعاية صحية متميزة بأحدث التقنيات العالمية">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-container">
+            <div class="hospital-icon"><i class="fas fa-hospital"></i></div>
+            <div class="loading-text">
+                <span class="letter">E</span><span class="letter">l</span><span class="letter">i</span><span class="letter">t</span><span class="letter">e</span>
+                <span class="letter space"></span>
+                <span class="letter">C</span><span class="letter">a</span><span class="letter">r</span><span class="letter">e</span>
+            </div>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+            <div class="loading-percentage">0%</div>
+            <div class="loading-subtitle">جاري تحميل أفضل تجربة رعاية صحية...</div>
+        </div>
+    </div>
+
+    <!-- Auth Modal (Login & Register Combined) -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content auth-modal-content">
+            <span class="close-modal">&times;</span>
+
+            <!-- Login Form -->
+            <div id="login-section" class="auth-section">
+                <div class="login-header">
+                    <i class="fas fa-user-md"></i>
+                    <h2>تسجيل الدخول</h2>
+                    <p>أهلاً بك في بوابة المرضى</p>
+                </div>
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                        <input type="email" id="login-email" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="login-password" placeholder="••••••••" required>
+                            <i class="fas fa-eye toggle-password" data-target="login-password"></i>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me"><input type="checkbox" id="remember-me"> تذكرني</label>
+                        <a href="#" class="forgot-password" onclick="showForgotPassword(); return false;">نسيت كلمة المرور؟</a>
+                    </div>
+                    <button type="submit" class="login-btn"><span>تسجيل الدخول</span><i class="fas fa-arrow-left"></i></button>
+                </form>
+                <div class="social-auth-divider"><span>أو تسجيل الدخول عبر</span></div>
+                <div class="social-auth-buttons">
+                    <button type="button" class="social-auth-btn google-auth-btn" onclick="socialLogin('google')"><i class="fab fa-google"></i> جوجل</button>
+                    <button type="button" class="social-auth-btn facebook-auth-btn" onclick="socialLogin('facebook')"><i class="fab fa-facebook-f"></i> فيسبوك</button>
+                </div>
+                <p class="register-link">ليس لديك حساب؟ <a href="#" id="show-register">إنشاء حساب جديد</a></p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-section" class="auth-section" style="display: none;">
+                <div class="login-header">
+                    <i class="fas fa-user-plus"></i>
+                    <h2>إنشاء حساب جديد</h2>
+                    <p>انضم إلينا للحصول على رعاية صحية متميزة</p>
+                </div>
+                <form id="register-form" class="login-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> الاسم الأول</label>
+                            <input type="text" id="reg-firstname" placeholder="الاسم الأول" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> الاسم الأخير</label>
+                            <input type="text" id="reg-lastname" placeholder="الاسم الأخير" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                        <input type="email" id="reg-email" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> رقم الهاتف</label>
+                        <input type="tel" id="reg-phone" placeholder="01xxxxxxxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="reg-password" placeholder="••••••••" required>
+                            <i class="fas fa-eye toggle-password" data-target="reg-password"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> تأكيد كلمة المرور</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="reg-confirm-password" placeholder="••••••••" required>
+                            <i class="fas fa-eye toggle-password" data-target="reg-confirm-password"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="terms-label">
+                            <input type="checkbox" id="reg-terms" required>
+                            أوافق على <a href="#terms" onclick="showTerms(); return false;">شروط الاستخدام</a> و <a href="#privacy" onclick="showPrivacy(); return false;">سياسة الخصوصية</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="login-btn"><span>إنشاء الحساب</span><i class="fas fa-arrow-left"></i></button>
+                </form>
+                <div class="social-auth-divider"><span>أو إنشاء حساب عبر</span></div>
+                <div class="social-auth-buttons">
+                    <button type="button" class="social-auth-btn google-auth-btn" onclick="socialLogin('google')"><i class="fab fa-google"></i> جوجل</button>
+                    <button type="button" class="social-auth-btn facebook-auth-btn" onclick="socialLogin('facebook')"><i class="fab fa-facebook-f"></i> فيسبوك</button>
+                </div>
+                <p class="register-link">لديك حساب بالفعل؟ <a href="#" id="show-login">تسجيل الدخول</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page Modal -->
+    <div id="profile-modal" class="modal profile-modal">
+        <div class="modal-content profile-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="profile-container">
+                <div class="profile-sidebar">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar">
+                            <div class="avatar-initials" id="profile-avatar-initials">
+                                <span>م</span>
+                            </div>
+                            <div class="avatar-status online"></div>
+                        </div>
+                        <h3 class="profile-name" id="profile-name">المستخدم</h3>
+                        <p class="profile-id" id="profile-id">#PAT-2026-000</p>
+                        <span class="profile-badge"><i class="fas fa-crown"></i> عضو مميز</span>
+                    </div>
+                    <div class="profile-nav">
+                        <button class="profile-nav-btn active" data-tab="overview"><i class="fas fa-chart-pie"></i> نظرة عامة</button>
+                        <button class="profile-nav-btn" data-tab="appointments"><i class="fas fa-calendar-alt"></i> مواعيدي</button>
+                        <button class="profile-nav-btn" data-tab="medical-records"><i class="fas fa-file-medical"></i> السجل الطبي</button>
+                        <button class="profile-nav-btn" data-tab="prescriptions"><i class="fas fa-prescription-bottle-alt"></i> الوصفات الطبية</button>
+                        <button class="profile-nav-btn" data-tab="lab-results"><i class="fas fa-flask"></i> نتائج التحاليل</button>
+                        <button class="profile-nav-btn" data-tab="settings"><i class="fas fa-cog"></i> الإعدادات</button>
+                    </div>
+                    <button class="profile-logout-btn" id="profile-logout-btn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+                </div>
+                <div class="profile-main">
+                    <div class="profile-tab active" id="overview-tab">
+                        <div class="profile-header">
+                            <h2><i class="fas fa-chart-pie"></i> نظرة عامة</h2>
+                            <p>ملخص حالتك الصحية والمواعيد القادمة</p>
+                        </div>
+                        <div class="profile-stats-grid">
+                            <div class="profile-stat-card">
+                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                                <div class="stat-info">
+                                    <span class="stat-value" id="stat-appointments">0</span>
+                                    <span class="stat-label">موعد هذا الشهر</span>
+                                </div>
+                            </div>
+                            <div class="profile-stat-card">
+                                <div class="stat-icon"><i class="fas fa-pills"></i></div>
+                                <div class="stat-info">
+                                    <span class="stat-value" id="stat-prescriptions">0</span>
+                                    <span class="stat-label">وصفة نشطة</span>
+                                </div>
+                            </div>
+                            <div class="profile-stat-card">
+                                <div class="stat-icon"><i class="fas fa-vial"></i></div>
+                                <div class="stat-info">
+                                    <span class="stat-value" id="stat-lab">0</span>
+                                    <span class="stat-label">تحليل قيد الانتظار</span>
+                                </div>
+                            </div>
+                            <div class="profile-stat-card">
+                                <div class="stat-icon"><i class="fas fa-heartbeat"></i></div>
+                                <div class="stat-info">
+                                    <span class="stat-value">98%</span>
+                                    <span class="stat-label">مؤشر الصحة</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-sections">
+                            <div class="profile-section">
+                                <h3><i class="fas fa-calendar-day"></i> المواعيد القادمة</h3>
+                                <div class="upcoming-appointments" id="upcoming-appointments">
+                                    <div class="empty-state">
+                                        <i class="fas fa-calendar-plus"></i>
+                                        <p>لا توجد مواعيد قادمة</p>
+                                        <a href="#appointments" class="btn btn-primary" data-page="appointments" onclick="closeProfileModal()">احجز موعد الآن</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-section">
+                                <h3><i class="fas fa-bell"></i> الإشعارات</h3>
+                                <div class="notifications-list" id="notifications-list">
+                                    <div class="empty-state">
+                                        <i class="fas fa-bell-slash"></i>
+                                        <p>لا توجد إشعارات جديدة</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-tab" id="appointments-tab">
+                        <div class="profile-header">
+                            <h2><i class="fas fa-calendar-alt"></i> مواعيدي</h2>
+                            <p>إدارة جميع مواعيدك الطبية</p>
+                            <button type="button" class="rate-visit-btn" onclick="openReviewModal()"><i class="fas fa-star"></i> قيّم زيارتك</button>
+                        </div>
+                        <div class="appointments-table-wrapper">
+                            <table class="appointments-table">
+                                <thead>
+                                    <tr><th>التاريخ</th><th>الطبيب</th><th>التخصص</th><th>الوقت</th><th>الحالة</th><th>إجراءات</th></tr>
+                                </thead>
+                                <tbody id="appointments-tbody">
+                                    <tr class="empty-row">
+                                        <td colspan="6">
+                                            <div class="empty-state">
+                                                <i class="fas fa-calendar-plus"></i>
+                                                <p>لا توجد مواعيد مسجلة</p>
+                                                <a href="#appointments" class="btn btn-primary" data-page="appointments" onclick="closeProfileModal()">احجز موعد الآن</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="profile-tab" id="medical-records-tab">
+                        <div class="profile-header">
+                            <h2><i class="fas fa-file-medical"></i> السجل الطبي</h2>
+                            <p>سجل حالتك الصحية الكامل</p>
+                        </div>
+                        <div class="medical-upload-box">
+                            <input type="file" id="medical-file-input" accept=".pdf,.jpg,.jpeg,.png,.webp" hidden>
+                            <button type="button" class="medical-upload-btn" id="medical-upload-btn"><i class="fas fa-cloud-upload-alt"></i> رفع ملف طبي (تقرير، أشعة، تحليل...)</button>
+                            <p class="medical-upload-hint">يدعم PDF والصور، بحد أقصى 3 ميجابايت لكل ملف — يتم الحفظ محلياً على جهازك فقط</p>
+                        </div>
+                        <div class="medical-files-list" id="medical-files-list"></div>
+                        <div class="medical-timeline" id="medical-timeline">
+                            <div class="empty-state">
+                                <i class="fas fa-folder-open"></i>
+                                <p>لا توجد سجلات طبية مسجلة</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-tab" id="prescriptions-tab">
+                        <div class="profile-header">
+                            <h2><i class="fas fa-prescription-bottle-alt"></i> الوصفات الطبية</h2>
+                            <p>الأدوية الموصوفة والتعليمات</p>
+                        </div>
+                        <div class="prescriptions-grid" id="prescriptions-grid">
+                            <div class="empty-state">
+                                <i class="fas fa-prescription-bottle-alt"></i>
+                                <p>لا توجد وصفات طبية مسجلة</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-tab" id="lab-results-tab">
+                        <div class="profile-header">
+                            <h2><i class="fas fa-flask"></i> نتائج التحاليل</h2>
+                            <p>نتائج الفحوصات المخبرية</p>
+                        </div>
+                        <div class="lab-results-list" id="lab-results-list">
+                            <div class="empty-state">
+                                <i class="fas fa-flask"></i>
+                                <p>لا توجد نتائج تحاليل مسجلة</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-tab" id="settings-tab">
+                        <div class="profile-header">
+                            <h2><i class="fas fa-cog"></i> الإعدادات</h2>
+                            <p>إدارة إعدادات حسابك</p>
+                        </div>
+                        <div class="settings-sections">
+                            <div class="settings-section">
+                                <h3><i class="fas fa-user-circle"></i> المعلومات الشخصية</h3>
+                                <div class="settings-form">
+                                    <div class="form-row">
+                                        <div class="form-group"><label>الاسم الأول</label><input type="text" id="setting-firstname" value=""></div>
+                                        <div class="form-group"><label>الاسم الأخير</label><input type="text" id="setting-lastname" value=""></div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="setting-email" value="" readonly></div>
+                                        <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="setting-phone" value=""></div>
+                                    </div>
+                                    <div class="form-group"><label>العنوان</label><input type="text" id="setting-address" value=""></div>
+                                    <button class="save-btn" id="save-profile-btn"><i class="fas fa-save"></i> حفظ التغييرات</button>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3><i class="fas fa-language"></i> اللغة</h3>
+                                <div class="toggle-list">
+                                    <div class="toggle-item">
+                                        <span>لغة الموقع</span>
+                                        <button class="lang-toggle-btn" id="lang-toggle-btn" title="Switch language">
+                                            <span class="lang-current">EN</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3><i class="fas fa-bell"></i> إعدادات الإشعارات</h3>
+                                <div class="toggle-list">
+                                    <div class="toggle-item"><span>إشعارات المواعيد</span><label class="toggle-switch"><input type="checkbox" checked id="notif-appointments"><span class="toggle-slider"></span></label></div>
+                                    <div class="toggle-item"><span>تذكيرات الأدوية</span><label class="toggle-switch"><input type="checkbox" checked id="notif-medicine"><span class="toggle-slider"></span></label></div>
+                                    <div class="toggle-item"><span>نتائج التحاليل</span><label class="toggle-switch"><input type="checkbox" checked id="notif-lab"><span class="toggle-slider"></span></label></div>
+                                    <div class="toggle-item"><span>النشرة البريدية</span><label class="toggle-switch"><input type="checkbox" id="notif-newsletter"><span class="toggle-slider"></span></label></div>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3><i class="fas fa-lock"></i> الأمان</h3>
+                                <div class="settings-form">
+                                    <div class="form-group"><label>كلمة المرور الحالية</label><input type="password" placeholder="••••••••"></div>
+                                    <div class="form-group"><label>كلمة المرور الجديدة</label><input type="password" placeholder="••••••••"></div>
+                                    <div class="form-group"><label>تأكيد كلمة المرور</label><input type="password" placeholder="••••••••"></div>
+                                    <button class="save-btn" onclick="changePassword(); return false;"><i class="fas fa-key"></i> تغيير كلمة المرور</button>
+                                </div>
+
+                            <div class="settings-section">
+                                <h3><i class="fas fa-bell"></i> تذكيرات المواعيد والأدوية</h3>
+                                <div class="reminders-info-box">
+                                    <div class="reminder-type">
+                                        <i class="fas fa-envelope"></i>
+                                        <div>
+                                            <h4>تذكير بالبريد الإلكتروني</h4>
+                                            <p>سيتم إرسال تذكير بموعدك قبل 24 ساعة وقبل 2 ساعة من الموعد المحدد.</p>
+                                            <span class="reminder-note"><i class="fas fa-info-circle"></i> يتطلب ربط بخدمة بريد إلكتروني خارجية (مثل SendGrid)</span>
+                                        </div>
+                                    </div>
+                                    <div class="reminder-type">
+                                        <i class="fas fa-sms"></i>
+                                        <div>
+                                            <h4>تذكير برسالة نصية (SMS)</h4>
+                                            <p>سيتم إرسال رسالة نصية قصيرة لتذكيرك بموعدك القادم.</p>
+                                            <span class="reminder-note"><i class="fas fa-info-circle"></i> يتطلب ربط بخدمة رسائل خارجية (مثل Twilio)</span>
+                                        </div>
+                                    </div>
+                                    <div class="reminder-type">
+                                        <i class="fas fa-pills"></i>
+                                        <div>
+                                            <h4>تذكير بالأدوية</h4>
+                                            <p>تذكير يومي بمواعيد تناول الأدوية الموصوفة.</p>
+                                            <span class="reminder-note"><i class="fas fa-info-circle"></i> يتطلب تفعيل إشعارات المتصفح أو ربط بخدمة خارجية</span>
+                                        </div>
+                                    </div>
+                                    <div class="reminder-config-note">
+                                        <i class="fas fa-cogs"></i>
+                                        <p>هذه الميزة تحتاج إلى إعدادات خادم (Backend) ومفاتيح API من مزودي خدمة البريد/الرسائل. يمكن تفعيلها لاحقاً عند ربط الموقع بخادم حقيقي.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="emergency-modal" class="modal emergency-modal">
+        <div class="modal-content emergency-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="emergency-container">
+                <div class="emergency-header">
+                    <div class="emergency-icon-wrapper">
+                        <i class="fas fa-ambulance"></i>
+                        <div class="emergency-pulse-ring"></div>
+                    </div>
+                    <h2>قسم الطوارئ</h2>
+                    <p class="emergency-subtitle">خدمة طوارئ 24/7 - استجابة فورية</p>
+                </div>
+                <div class="emergency-stats-bar">
+                    <div class="emergency-stat"><span class="emergency-stat-number">3</span><span class="emergency-stat-label">دقائق متوسط الاستجابة</span></div>
+                    <div class="emergency-stat"><span class="emergency-stat-number">50+</span><span class="emergency-stat-label">سرير طوارئ</span></div>
+                    <div class="emergency-stat"><span class="emergency-stat-number">24/7</span><span class="emergency-stat-label">خدمة مستمرة</span></div>
+                </div>
+                <div class="emergency-actions">
+                    <a href="tel:19001" class="emergency-action-btn primary">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <span class="action-title">اتصل بالطوارئ</span>
+                            <span class="action-number">19001</span>
+                        </div>
+                    </a>
+                    <a href="tel:19000" class="emergency-action-btn secondary">
+                        <i class="fas fa-ambulance"></i>
+                        <div>
+                            <span class="action-title">طلب إسعاف</span>
+                            <span class="action-number">19000</span>
+                        </div>
+                    </a>
+                    <button class="emergency-action-btn secondary" id="emergency-location-btn">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span class="action-title">موقع الطوارئ</span>
+                            <span class="action-number">احصل على الاتجاهات</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="emergency-info">
+                    <div class="emergency-info-card">
+                        <i class="fas fa-heartbeat"></i>
+                        <h4>حالات الطوارئ الشائعة</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> ألم حاد في الصدر</li>
+                            <li><i class="fas fa-check"></i> صعوبة في التنفس</li>
+                            <li><i class="fas fa-check"></i> نزيف حاد</li>
+                            <li><i class="fas fa-check"></i> كسور وإصابات</li>
+                            <li><i class="fas fa-check"></i> حالات تسمم</li>
+                        </ul>
+                    </div>
+                    <div class="emergency-info-card">
+                        <i class="fas fa-procedures"></i>
+                        <h4>معدات الطوارئ</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> أجهزة إنعاش متطورة</li>
+                            <li><i class="fas fa-check"></i> غرف عمليات طوارئ</li>
+                            <li><i class="fas fa-check"></i> سيارات إسعاف مجهزة</li>
+                            <li><i class="fas fa-check"></i> فريق استجابة سريعة</li>
+                        </ul>
+                    </div>
+                    <div class="emergency-info-card">
+                        <i class="fas fa-user-md"></i>
+                        <h4>فريق الطوارئ</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> أطباء طوارئ متخصصين</li>
+                            <li><i class="fas fa-check"></i> ممرضين على مدار الساعة</li>
+                            <li><i class="fas fa-check"></i> جراحين استشاريين</li>
+                            <li><i class="fas fa-check"></i> فريق تخدير متخصص</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="emergency-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>في حالات الطوارئ الحرجة، يرجى الاتصال مباشرة على <strong>19001</strong>. لا تنتظر - كل ثانية تهم!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Detail Modal -->
+    <div id="service-modal" class="modal service-modal">
+        <div class="modal-content service-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="service-detail-container" id="service-detail-content">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Detail Modal -->
+    <div id="doctor-modal" class="modal doctor-modal">
+        <div class="modal-content doctor-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="doctor-detail-container" id="doctor-detail-content">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Article Detail Modal -->
+    <div id="blog-article-modal" class="modal service-modal">
+        <div class="modal-content service-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="service-detail-container" id="blog-article-content"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-hospital-alt"></i>
+                <div class="logo-text">
+                    <span class="logo-main">Elite Care</span>
+                    <span class="logo-sub">مستشفى النخبة الطبية</span>
+                </div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="active" data-page="home">الرئيسية</a></li>
+                <li><a href="#about" data-page="about">عن المستشفى</a></li>
+                <li><a href="#services" data-page="services">خدماتنا</a></li>
+                <li><a href="#doctors" data-page="doctors">الأطباء</a></li>
+                <li><a href="#departments" data-page="departments">الأقسام</a></li>
+                <li><a href="#appointments" data-page="appointments">الحجوزات</a></li>
+                <li><a href="#contact" data-page="contact">تواصل معنا</a></li>
+                <li><a href="#blog" data-page="blog">المدونة</a></li>
+                <li><a href="#faq" data-page="faq">الأسئلة الشائعة</a></li>
+                <li><a href="#insurance" data-page="insurance">التأمين والدفع</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="site-search-wrap">
+                    <button class="search-trigger-btn" id="search-trigger-btn" title="بحث في الموقع"><i class="fas fa-search"></i></button>
+                    <div class="site-search-panel" id="site-search-panel">
+                        <div class="site-search-input-wrap">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="site-search-input" placeholder="ابحث عن خدمة، طبيب، صفحة...">
+                            <i class="fas fa-times site-search-close" id="site-search-close"></i>
+                        </div>
+                        <div class="site-search-results" id="site-search-results"></div>
+                    </div>
+                </div>
+                <button class="login-trigger" id="login-trigger">
+                    <div class="nav-avatar" id="nav-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span id="nav-user-text">تسجيل الدخول</span>
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+
+        <!-- PAGE: HOME -->
+        <section id="home" class="page-section active">
+            <section class="hero">
+                <div class="hero-bg">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-particles" id="particles"></div>
+                </div>
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-award"></i>
+                        <span>أفضل مستشفى في المنطقة 2026</span>
+                    </div>
+                    <h1 class="hero-title">رعاية صحية <span class="highlight">متميزة</span><br>بأحدث التقنيات العالمية</h1>
+                    <p class="hero-description">نقدم لك تجربة علاجية فريدة تجمع بين الخبرة الطبية العميقة والتكنولوجيا المتطورة في بيئة مصممة خصيصاُ لراحتك وسلامتك</p>
+                    <div class="hero-stats">
+                        <div class="stat-item"><span class="stat-number" data-target="50">0</span><span class="stat-label">طبيب متخصص</span></div>
+                        <div class="stat-item"><span class="stat-number" data-target="25">0</span><span class="stat-label">سنة خبرة</span></div>
+                        <div class="stat-item"><span class="stat-number" data-target="100000">0</span><span class="stat-label">مريض سنوياً</span></div>
+                        <div class="stat-item"><span class="stat-number" data-target="99">0</span><span class="stat-label">% رضا المرضى</span></div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعدك الآن</a>
+                        <a href="#services" class="btn btn-secondary" data-page="services"><i class="fas fa-play-circle"></i> استكشف خدماتنا</a>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="mouse"><div class="wheel"></div></div>
+                    <span>اسحب للأسفل</span>
+                </div>
+            </section>
+
+            <section class="quick-access">
+                <div class="container">
+                    <div class="quick-grid">
+                        <a href="#appointments" class="quick-card" data-page="appointments">
+                            <div class="quick-icon"><i class="fas fa-calendar-check"></i></div>
+                            <h3>حجز موعد</h3><p>احجز موعدك بسهولة أونلاين</p>
+                        </a>
+                        <a href="#doctors" class="quick-card" data-page="doctors">
+                            <div class="quick-icon"><i class="fas fa-user-md"></i></div>
+                            <h3>الأطباء</h3><p>تعرف على فريقنا الطبي</p>
+                        </a>
+                        <a href="#services" class="quick-card" data-page="services">
+                            <div class="quick-icon"><i class="fas fa-stethoscope"></i></div>
+                            <h3>الخدمات</h3><p>اكتشف خدماتنا الطبية</p>
+                        </a>
+                        <a href="#departments" class="quick-card" data-page="departments">
+                            <div class="quick-icon"><i class="fas fa-building"></i></div>
+                            <h3>الأقسام</h3><p>تصفح أقسامنا المتخصصة</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-preview">
+                <div class="container">
+                    <div class="about-grid">
+                        <div class="about-image">
+                            <div class="image-frame">
+                                <img src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=800&q=80" alt="مستشفى النخبة">
+                                <div class="experience-badge"><span class="exp-number">25+</span><span class="exp-text">سنة من<br>التميز الطبي</span></div>
+                            </div>
+                        </div>
+                        <div class="about-content">
+                            <span class="section-tag">من نحن</span>
+                            <h2>مستشفى النخبة الطبية</h2>
+                            <p>مستشفى النخبة الطبية هي مؤسسة رائدة في مجال الرعاية الصحية، تأسست عام 2001 بهدف تقديم خدمات طبية متكاملة بأعلى معايير الجودة العالمية.</p>
+                            <div class="features-list">
+                                <div class="feature-item"><div class="feature-icon"><i class="fas fa-certificate"></i></div><div class="feature-text"><h4>معتمد دولياً</h4><p>حاصل على شهادات الجودة ISO و JCI</p></div></div>
+                                <div class="feature-item"><div class="feature-icon"><i class="fas fa-microscope"></i></div><div class="feature-text"><h4>تقنيات متطورة</h4><p>أحدث الأجهزة الطبية من أوروبا وأمريكا</p></div></div>
+                                <div class="feature-item"><div class="feature-icon"><i class="fas fa-user-nurse"></i></div><div class="feature-text"><h4>فريق متخصص</h4><p>أفضل الأطباء والممرضين في المنطقة</p></div></div>
+                                <div class="feature-item"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><div class="feature-text"><h4>أمان وحماية</h4><p>نظام حماية بيانات متقدم وآمن</p></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="services-preview">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">خدماتنا</span>
+                        <h2 class="section-title">خدمات طبية متكاملة</h2>
+                        <p class="section-subtitle">نقدم مجموعة واسعة من الخدمات الطبية المتخصصة</p>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card"><div class="service-icon"><i class="fas fa-heartbeat"></i></div><h3>القلب والأوعية الدموية</h3><p>تشخيص وعلاج أمراض القلب بأحدث التقنيات الجراحية والتداخلية</p><a href="#services" class="service-link" data-page="services">المزيد <i class="fas fa-arrow-left"></i></a></div>
+                        <div class="service-card"><div class="service-icon"><i class="fas fa-brain"></i></div><h3>المخ والأعصاب</h3><p>علاج اضطرابات الجهاز العصبي والجراحة العصبية الدقيقة</p><a href="#services" class="service-link" data-page="services">المزيد <i class="fas fa-arrow-left"></i></a></div>
+                        <div class="service-card"><div class="service-icon"><i class="fas fa-bone"></i></div><h3>جراحة العظام</h3><p>علاج إصابات العظام والمفاصل واستبدال المفاصل الصناعية</p><a href="#services" class="service-link" data-page="services">المزيد <i class="fas fa-arrow-left"></i></a></div>
+                        <div class="service-card"><div class="service-icon"><i class="fas fa-baby"></i></div><h3>طب الأطفال</h3><p>رعاية شاملة للأطفال حديثي الولادة حتى سن المراهقة</p><a href="#services" class="service-link" data-page="services">المزيد <i class="fas fa-arrow-left"></i></a></div>
+                    </div>
+                    <div class="text-center" style="margin-top:2rem">
+                        <a href="#services" class="btn btn-secondary" data-page="services"><i class="fas fa-th-large"></i> جميع الخدمات</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="doctors-preview">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">فريقنا الطبي</span>
+                        <h2 class="section-title">أفضل الأطباء المتخصصين</h2>
+                        <p class="section-subtitle">فريق طبي متميز بخبرات عالمية</p>
+                    </div>
+                    <div class="doctors-slider" id="doctors-slider-home">
+                        <div class="doctor-card">
+                            <div class="doctor-image">
+                                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80" alt="د. أحمد محمد">
+                                <div class="doctor-overlay"><div class="doctor-social"><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a><a href="mailto:contact@elitecare.com" title="إرسال بريد إلكتروني"><i class="fas fa-envelope"></i></a></div></div>
+                            </div>
+                            <div class="doctor-info">
+                                <h3>د. أحمد محمد</h3><span class="doctor-specialty">استشاري جراحة القلب</span>
+                                <div class="doctor-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0</span></div>
+                                <p class="doctor-experience">20+ سنة خبرة - زميل الكلية الملكية البريطانية</p>
+                                <button class="book-doctor-btn" data-page="appointments">احجز موعد</button>
+                            </div>
+                        </div>
+                        <div class="doctor-card">
+                            <div class="doctor-image">
+                                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&q=80" alt="د. سارة أحمد">
+                                <div class="doctor-overlay"><div class="doctor-social"><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a><a href="mailto:contact@elitecare.com" title="إرسال بريد إلكتروني"><i class="fas fa-envelope"></i></a></div></div>
+                            </div>
+                            <div class="doctor-info">
+                                <h3>د. سارة أحمد</h3><span class="doctor-specialty">استشاري جراحة المخ والأعصاب</span>
+                                <div class="doctor-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>4.9</span></div>
+                                <p class="doctor-experience">18+ سنة خبرة - دكتوراه من جامعة هارفارد</p>
+                                <button class="book-doctor-btn" data-page="appointments">احجز موعد</button>
+                            </div>
+                        </div>
+                        <div class="doctor-card">
+                            <div class="doctor-image">
+                                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80" alt="د. خالد العلي">
+                                <div class="doctor-overlay"><div class="doctor-social"><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a><a href="mailto:contact@elitecare.com" title="إرسال بريد إلكتروني"><i class="fas fa-envelope"></i></a></div></div>
+                            </div>
+                            <div class="doctor-info">
+                                <h3>د. خالد العلي</h3><span class="doctor-specialty">استشاري جراحة العظام</span>
+                                <div class="doctor-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0</span></div>
+                                <p class="doctor-experience">22+ سنة خبرة - زميل جمعية العظام الأمريكية</p>
+                                <button class="book-doctor-btn" data-page="appointments">احجز موعد</button>
+                            </div>
+                        </div>
+                        <div class="doctor-card">
+                            <div class="doctor-image">
+                                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="د. نورا حسن">
+                                <div class="doctor-overlay"><div class="doctor-social"><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a><a href="mailto:contact@elitecare.com" title="إرسال بريد إلكتروني"><i class="fas fa-envelope"></i></a></div></div>
+                            </div>
+                            <div class="doctor-info">
+                                <h3>د. نورا حسن</h3><span class="doctor-specialty">استشاري طب الأطفال</span>
+                                <div class="doctor-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0</span></div>
+                                <p class="doctor-experience">15+ سنة خبرة - دكتوراه من جامعة أكسفورد</p>
+                                <button class="book-doctor-btn" data-page="appointments">احجز موعد</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-btn prev" id="prev-doctor-home"><i class="fas fa-chevron-right"></i></button>
+                        <button class="slider-btn next" id="next-doctor-home"><i class="fas fa-chevron-left"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="testimonials-preview">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">آراء مرضانا</span>
+                        <h2 class="section-title">ماذا يقول مرضانا عنا</h2>
+                        <p class="section-subtitle">تجارب حقيقية من مرضى وثقوا برعايتنا الطبية</p>
+                    </div>
+                    <div class="testimonials-grid">
+                        <div class="testimonial-card featured">
+                            <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                            <div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="testimonial-text">تجربتي في مستشفى النخبة كانت أكثر من رائعة، من لحظة الاستقبال وحتى انتهاء العملية. فريق طبي محترف واهتمام حقيقي بالمريض.</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar-initials">م ع</div>
+                                <div class="testimonial-author-info"><h4>محمد عبد الله</h4><span>مريض قسم القلب</span></div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                            <div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="testimonial-text">حجزت الموعد أونلاين في دقائق، والدكتورة كانت متمكنة جداً وشرحت لي كل حاجة بالتفصيل. شكراً لكل الفريق.</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar-initials">س ح</div>
+                                <div class="testimonial-author-info"><h4>سارة حسين</h4><span>مريضة قسم الأطفال</span></div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-right testimonial-quote-icon"></i>
+                            <div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <p class="testimonial-text">أفضل تجربة علاجية مررت بها، الأجهزة حديثة والنظافة ممتازة والطاقم بيتعامل باحترافية وود.</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar-initials">ي ك</div>
+                                <div class="testimonial-author-info"><h4>يوسف كمال</h4><span>مريض قسم العظام</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+        <!-- PAGE: ABOUT -->
+        <section id="about" class="page-section">
+            <div class="page-hero about-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">عن المستشفى</span>
+                    <h1>مستشفى النخبة الطبية</h1>
+                    <p>نحن نؤمن بأن كل مريض يستحق أفضل رعاية</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="about-full">
+                    <div class="about-story">
+                        <div class="story-image">
+                            <img src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=800&q=80" alt="مستشفى النخبة">
+                            <div class="story-badge"><span class="story-number">25+</span><span class="story-text">سنة من التميز</span></div>
+                        </div>
+                        <div class="story-content">
+                            <h2>قصة نجاح بدأت عام 2001</h2>
+                            <p>مستشفى النخبة الطبية هي مؤسسة رائدة في مجال الرعاية الصحية، تأسست عام 2001 بهدف تقديم خدمات طبية متكاملة بأعلى معايير الجودة العالمية. نجمع بين الخبرة الطبية العميقة والتقنيات الحديثة لضمان أفضل النتائج لمرضانا.</p>
+                            <p>على مدار أكثر من ربع قرن، أصبحنا الوجهة الأولى للمرضى الذين يبحثون عن رعاية صحية متميزة. نفتخر بفريقنا الطبي المكون من أكثر من 50 طبيباُ متخصصاُ من مختلف التخصصات الطبية.</p>
+                            <div class="story-stats">
+                                <div class="story-stat"><span class="story-stat-number">50+</span><span class="story-stat-label">طبيب متخصص</span></div>
+                                <div class="story-stat"><span class="story-stat-number">25</span><span class="story-stat-label">سنة خبرة</span></div>
+                                <div class="story-stat"><span class="story-stat-number">100K+</span><span class="story-stat-label">مريض سنوياً</span></div>
+                                <div class="story-stat"><span class="story-stat-number">99%</span><span class="story-stat-label">رضا المرضى</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mission-vision">
+                        <div class="mv-card">
+                            <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+                            <h3>رسالتنا</h3>
+                            <p>تقديم رعاية صحية شاملة ومتميزة تجمع بين الخبرة الطبية العميقة والتكنولوجيا المتطورة، مع الحفاظ على كرامة المريض وخصوصيته في بيئة آمنة ومريحة.</p>
+                        </div>
+                        <div class="mv-card">
+                            <div class="mv-icon"><i class="fas fa-eye"></i></div>
+                            <h3>رؤيتنا</h3>
+                            <p>أن نكون المستشفى الرائد في المنطقة والوجهة المفضلة للمرضى الذين يبحثون عن أعلى معايير الجودة في الرعاية الصحية، وأن نكون نموذجاً يحتذى به في المنطقة.</p>
+                        </div>
+                        <div class="mv-card">
+                            <div class="mv-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                            <h3>قيمنا</h3>
+                            <p>التميز - الابتكار - الشفافية - الاحترام - التعاون - المسؤولية. هذه القيم الأساسية التي نؤمن بها ونسعى لتطبيقها في كل ما نقوم به.</p>
+                        </div>
+                    </div>
+
+                    <div class="certifications">
+                        <h2 class="section-title text-center">شهاداتنا واعتماداتنا</h2>
+                        <div class="cert-grid">
+                            <div class="cert-card"><i class="fas fa-certificate"></i><h4>ISO 9001:2015</h4><p>نظام إدارة الجودة</p></div>
+                            <div class="cert-card"><i class="fas fa-certificate"></i><h4>JCI</h4><p>اللجنة الدولية المشتركة</p></div>
+                            <div class="cert-card"><i class="fas fa-certificate"></i><h4>CAP</h4><p>كلية الأمراض المختبرية الأمريكية</p></div>
+                            <div class="cert-card"><i class="fas fa-certificate"></i><h4>HIMSS</h4><p>نظام المعلومات الصحية</p></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline">
+                        <h2 class="section-title text-center">رحلتنا عبر السنوات</h2>
+                        <div class="timeline-container">
+                            <div class="timeline-item"><div class="timeline-year">2001</div><div class="timeline-content"><h4>التأسيس</h4><p>افتتاح المستشفى بـ 50 سرير و 10 أطباء متخصصين</p></div></div>
+                            <div class="timeline-item"><div class="timeline-year">2008</div><div class="timeline-content"><h4>التوسع الأول</h4><p>إضافة قسم جراحة القلب والأوعية الدموية</p></div></div>
+                            <div class="timeline-item"><div class="timeline-year">2015</div><div class="timeline-content"><h4>الاعتماد الدولي</h4><p>الحصول على اعتماد JCI الدولي للجودة</p></div></div>
+                            <div class="timeline-item"><div class="timeline-year">2020</div><div class="timeline-content"><h4>التقنيات المتطورة</h4><p>تجهيز أول غرفة عمليات روبوتية في المنطقة</p></div></div>
+                            <div class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-content"><h4>التميز المستمر</h4><p>تصنيف كأفضل مستشفى في المنطقة للعام الثالث على التوالي</p></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: SERVICES -->
+        <section id="services" class="page-section">
+            <div class="page-hero services-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">خدماتنا</span>
+                    <h1>خدمات طبية متكاملة</h1>
+                    <p>نقدم مجموعة واسعة من الخدمات الطبية المتخصصة بأحدث التقنيات</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="services-full">
+                    <div class="services-grid-full">
+                        <div class="service-card-full">
+                            <div class="service-card-header"><div class="service-icon-large"><i class="fas fa-heartbeat"></i></div><h3>القلب والأوعية الدموية</h3></div>
+                            <p>تشخيص وعلاج أمراض القلب بأحدث التقنيات الجراحية والتداخلية. نقدم خدمات تشمل قسطرة القلب، تركيب الدعامات، جراحة القلب المفتوح، وعلاج اضطرابات ضربات القلب.</p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check"></i> قسطرة تشخيصية وعلاجية</li>
+                                <li><i class="fas fa-check"></i> تركيب دعامات القلب</li>
+                                <li><i class="fas fa-check"></i> جراحة القلب المفتوح</li>
+                                <li><i class="fas fa-check"></i> علاج اضطرابات النظم</li>
+                            </ul>
+                            <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</a>
+                        </div>
+                        <div class="service-card-full">
+                            <div class="service-card-header"><div class="service-icon-large"><i class="fas fa-brain"></i></div><h3>المخ والأعصاب</h3></div>
+                            <p>علاج اضطرابات الجهاز العصبي والجراحة العصبية الدقيقة. نقدم خدمات متخصصة في علاج السكتات الدماغية، الصرع، أورام المخ، وجراحة العمود الفقري.</p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check"></i> علاج السكتات الدماغية</li>
+                                <li><i class="fas fa-check"></i> جراحة أورام المخ</li>
+                                <li><i class="fas fa-check"></i> علاج الصرع والشلل الرعاش</li>
+                                <li><i class="fas fa-check"></i> جراحة العمود الفقري</li>
+                            </ul>
+                            <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</a>
+                        </div>
+                        <div class="service-card-full">
+                            <div class="service-card-header"><div class="service-icon-large"><i class="fas fa-bone"></i></div><h3>جراحة العظام</h3></div>
+                            <p>علاج إصابات العظام والمفاصل واستبدال المفاصل الصناعية. نقدم أحدث تقنيات جراحة المنظار والجراحة الروبوتية لعلاج إصابات الرياضيين وكبار السن.</p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check"></i> استبدال مفاصل الركبة والورك</li>
+                                <li><i class="fas fa-check"></i> جراحة المنظار المفصلي</li>
+                                <li><i class="fas fa-check"></i> علاج إصابات الرياضيين</li>
+                                <li><i class="fas fa-check"></i> جراحة العمود الفقري</li>
+                            </ul>
+                            <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</a>
+                        </div>
+                        <div class="service-card-full">
+                            <div class="service-card-header"><div class="service-icon-large"><i class="fas fa-baby"></i></div><h3>طب الأطفال</h3></div>
+                            <p>رعاية شاملة للأطفال حديثي الولادة حتى سن المراهقة. نقدم خدمات متخصصة في طب الأطفال الحديثي الولادة، أمراض الجهاز الهضمي، الحساسية، والأمراض المعدية.</p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check"></i> رعاية الأطفال حديثي الولادة</li>
+                                <li><i class="fas fa-check"></i> التطعيمات والمتابعة</li>
+                                <li><i class="fas fa-check"></i> علاج الحساسية والربو</li>
+                                <li><i class="fas fa-check"></i> متابعة النمو والتطور</li>
+                            </ul>
+                            <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</a>
+                        </div>
+                        <div class="service-card-full">
+                            <div class="service-card-header"><div class="service-icon-large"><i class="fas fa-eye"></i></div><h3>طب العيون</h3></div>
+                            <p>جراحات الليزر وتصحيح النظر وعلاج أمراض الشبكية. نقدم أحدث تقنيات تصحيح النظر بالليزر (LASIK, PRK) وعلاج المياه البيضاء والزرقاء وزراعة القرنية.</p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check"></i> تصحيح النظر بالليزر</li>
+                                <li><i class="fas fa-check"></i> علاج المياه البيضاء والزرقاء</li>
+                                <li><i class="fas fa-check"></i> علاج أمراض الشبكية</li>
+                                <li><i class="fas fa-check"></i> زراعة القرنية</li>
+                            </ul>
+                            <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</a>
+                        </div>
+                        <div class="service-card-full">
+                            <div class="service-card-header"><div class="service-icon-large"><i class="fas fa-tooth"></i></div><h3>طب الأسنان</h3></div>
+                            <p>تجميل الأسنان وزراعة الأسنان وعلاج الجذور. نقدم خدمات متكاملة تشمل تبييض الأسنان، التقويم، التيجان والجسور، وعلاج آلام الأسنان الطارئة.</p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check"></i> تبييض وتجميل الأسنان</li>
+                                <li><i class="fas fa-check"></i> زراعة الأسنان</li>
+                                <li><i class="fas fa-check"></i> التقويم التجميلي</li>
+                                <li><i class="fas fa-check"></i> علاج الجذور</li>
+                            </ul>
+                            <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</a>
+                        </div>
+                        <div class="service-card-full">
+                            <div class="service-card-header"><div class="service-icon-large"><i class="fas fa-lungs"></i></div><h3>الجهاز التنفسي</h3></div>
+                            <p>علاج أمراض الرئة والحساسية والربو. نقدم خدمات متخصصة في تشخيص وعلاج أمراض الانسداد الرئوي المزمن، الربو، والالتهابات الرئوية.</p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check"></i> علاج الربو والحساسية</li>
+                                <li><i class="fas fa-check"></i> أمراض الانسداد الرئوي</li>
+                                <li><i class="fas fa-check"></i> اضطرابات النوم</li>
+                                <li><i class="fas fa-check"></i> اختبارات وظائف الرئة</li>
+                            </ul>
+                            <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</a>
+                        </div>
+                        <div class="service-card-full">
+                            <div class="service-card-header"><div class="service-icon-large"><i class="fas fa-ribbon"></i></div><h3>الأورام</h3></div>
+                            <p>علاج السرطان بالكيميائي والإشعاعي والجراحة المتخصصة. نقدم برامج علاج متكاملة تشمل العلاج الكيميائي، الإشعاعي، العلاج المناعي، والجراحة الروبوتية.</p>
+                            <ul class="service-features">
+                                <li><i class="fas fa-check"></i> العلاج الكيميائي</li>
+                                <li><i class="fas fa-check"></i> العلاج الإشعاعي</li>
+                                <li><i class="fas fa-check"></i> العلاج المناعي</li>
+                                <li><i class="fas fa-check"></i> الجراحة الروبوتية</li>
+                            </ul>
+                            <a href="#appointments" class="btn btn-primary" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: DOCTORS -->
+        <section id="doctors" class="page-section">
+            <div class="page-hero doctors-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">فريقنا الطبي</span>
+                    <h1>أفضل الأطباء المتخصصين</h1>
+                    <p>فريق طبي متميز بخبرات عالمية في مختلف التخصصات</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="doctors-full">
+                    <div class="doctors-filter">
+                        <button class="filter-btn active" data-filter="all">الكل</button>
+                        <button class="filter-btn" data-filter="cardiology">قلب وأوعية</button>
+                        <button class="filter-btn" data-filter="neurology">مخ وأعصاب</button>
+                        <button class="filter-btn" data-filter="orthopedics">عظام</button>
+                        <button class="filter-btn" data-filter="pediatrics">أطفال</button>
+                        <button class="filter-btn" data-filter="ophthalmology">عيون</button>
+                        <button class="filter-btn" data-filter="dentistry">أسنان</button>
+                    </div>
+                    <div class="doctors-grid-full">
+                        <div class="doctor-card-full" data-category="cardiology">
+                            <div class="doctor-card-image"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80" alt="د. أحمد محمد"></div>
+                            <div class="doctor-card-info">
+                                <h3>د. أحمد محمد</h3>
+                                <span class="doctor-card-specialty">استشاري جراحة القلب والأوعية الدموية</span>
+                                <div class="doctor-card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0 (120 تقييم)</span></div>
+                                <div class="doctor-card-details">
+                                    <p><i class="fas fa-graduation-cap"></i> زميل الكلية الملكية البريطانية</p>
+                                    <p><i class="fas fa-clock"></i> 20+ سنة خبرة</p>
+                                    <p><i class="fas fa-language"></i> العربية - الإنجليزية</p>
+                                </div>
+                                <div class="doctor-card-schedule"><span class="schedule-day">السبت - الأربعاء</span><span class="schedule-time">9:00 ص - 2:00 م</span></div>
+                                <button class="btn btn-primary book-doctor-btn" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</button>
+                            </div>
+                        </div>
+                        <div class="doctor-card-full" data-category="neurology">
+                            <div class="doctor-card-image"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&q=80" alt="د. سارة أحمد"></div>
+                            <div class="doctor-card-info">
+                                <h3>د. سارة أحمد</h3>
+                                <span class="doctor-card-specialty">استشاري جراحة المخ والأعصاب</span>
+                                <div class="doctor-card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>4.9 (95 تقييم)</span></div>
+                                <div class="doctor-card-details">
+                                    <p><i class="fas fa-graduation-cap"></i> دكتوراه من جامعة هارفارد</p>
+                                    <p><i class="fas fa-clock"></i> 18+ سنة خبرة</p>
+                                    <p><i class="fas fa-language"></i> العربية - الإنجليزية - الفرنسية</p>
+                                </div>
+                                <div class="doctor-card-schedule"><span class="schedule-day">الأحد - الخميس</span><span class="schedule-time">10:00 ص - 3:00 م</span></div>
+                                <button class="btn btn-primary book-doctor-btn" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</button>
+                            </div>
+                        </div>
+                        <div class="doctor-card-full" data-category="orthopedics">
+                            <div class="doctor-card-image"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80" alt="د. خالد العلي"></div>
+                            <div class="doctor-card-info">
+                                <h3>د. خالد العلي</h3>
+                                <span class="doctor-card-specialty">استشاري جراحة العظام والمفاصل</span>
+                                <div class="doctor-card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0 (150 تقييم)</span></div>
+                                <div class="doctor-card-details">
+                                    <p><i class="fas fa-graduation-cap"></i> زميل جمعية العظام الأمريكية</p>
+                                    <p><i class="fas fa-clock"></i> 22+ سنة خبرة</p>
+                                    <p><i class="fas fa-language"></i> العربية - الإنجليزية</p>
+                                </div>
+                                <div class="doctor-card-schedule"><span class="schedule-day">السبت - الأربعاء</span><span class="schedule-time">11:00 ص - 4:00 م</span></div>
+                                <button class="btn btn-primary book-doctor-btn" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</button>
+                            </div>
+                        </div>
+                        <div class="doctor-card-full" data-category="pediatrics">
+                            <div class="doctor-card-image"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="د. نورا حسن"></div>
+                            <div class="doctor-card-info">
+                                <h3>د. نورا حسن</h3>
+                                <span class="doctor-card-specialty">استشاري طب الأطفال</span>
+                                <div class="doctor-card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0 (200 تقييم)</span></div>
+                                <div class="doctor-card-details">
+                                    <p><i class="fas fa-graduation-cap"></i> دكتوراه من جامعة أكسفورد</p>
+                                    <p><i class="fas fa-clock"></i> 15+ سنة خبرة</p>
+                                    <p><i class="fas fa-language"></i> العربية - الإنجليزية - الألمانية</p>
+                                </div>
+                                <div class="doctor-card-schedule"><span class="schedule-day">السبت - الخميس</span><span class="schedule-time">9:00 ص - 1:00 م</span></div>
+                                <button class="btn btn-primary book-doctor-btn" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</button>
+                            </div>
+                        </div>
+                        <div class="doctor-card-full" data-category="cardiology">
+                            <div class="doctor-card-image"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=80" alt="د. محمود إبراهيم"></div>
+                            <div class="doctor-card-info">
+                                <h3>د. محمود إبراهيم</h3>
+                                <span class="doctor-card-specialty">أخصائي أمراض القلب التداخلية</span>
+                                <div class="doctor-card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>4.8 (80 تقييم)</span></div>
+                                <div class="doctor-card-details">
+                                    <p><i class="fas fa-graduation-cap"></i> ماجستير من جامعة القاهرة</p>
+                                    <p><i class="fas fa-clock"></i> 12+ سنة خبرة</p>
+                                    <p><i class="fas fa-language"></i> العربية - الإنجليزية</p>
+                                </div>
+                                <div class="doctor-card-schedule"><span class="schedule-day">الأحد - الخميس</span><span class="schedule-time">2:00 م - 7:00 م</span></div>
+                                <button class="btn btn-primary book-doctor-btn" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</button>
+                            </div>
+                        </div>
+                        <div class="doctor-card-full" data-category="ophthalmology">
+                            <div class="doctor-card-image"><img src="https://images.unsplash.com/photo-1612531386530-97286d74c2ea?w=400&q=80" alt="د. ليلى سامي"></div>
+                            <div class="doctor-card-info">
+                                <h3>د. ليلى سامي</h3>
+                                <span class="doctor-card-specialty">استشاري طب وجراحة العيون</span>
+                                <div class="doctor-card-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5.0 (110 تقييم)</span></div>
+                                <div class="doctor-card-details">
+                                    <p><i class="fas fa-graduation-cap"></i> دكتوراه من جامعة باريس</p>
+                                    <p><i class="fas fa-clock"></i> 16+ سنة خبرة</p>
+                                    <p><i class="fas fa-language"></i> العربية - الإنجليزية - الفرنسية</p>
+                                </div>
+                                <div class="doctor-card-schedule"><span class="schedule-day">السبت - الأربعاء</span><span class="schedule-time">10:00 ص - 2:00 م</span></div>
+                                <button class="btn btn-primary book-doctor-btn" data-page="appointments"><i class="fas fa-calendar-check"></i> احجز موعد</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: DEPARTMENTS -->
+        <section id="departments" class="page-section">
+            <div class="page-hero departments-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">أقسامنا</span>
+                    <h1>تخصصاتنا الطبية</h1>
+                    <p>أقسام متخصصة تغطي جميع احتياجاتك الصحية</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="departments-full">
+                    <div class="departments-tabs-full">
+                        <button class="tab-btn-full active" data-tab="emergency"><i class="fas fa-ambulance"></i><span>الطوارئ</span></button>
+                        <button class="tab-btn-full" data-tab="icu"><i class="fas fa-procedures"></i><span>العناية المركزة</span></button>
+                        <button class="tab-btn-full" data-tab="surgery"><i class="fas fa-user-md"></i><span>الجراحة</span></button>
+                        <button class="tab-btn-full" data-tab="radiology"><i class="fas fa-x-ray"></i><span>الأشعة</span></button>
+                        <button class="tab-btn-full" data-tab="lab"><i class="fas fa-flask"></i><span>المختبر</span></button>
+                        <button class="tab-btn-full" data-tab="pharmacy"><i class="fas fa-pills"></i><span>الصيدلية</span></button>
+                    </div>
+                    <div class="tab-content-full active" id="emergency-full">
+                        <div class="tab-content-grid">
+                            <div class="tab-content-image"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80" alt="قسم الطوارئ"></div>
+                            <div class="tab-content-info">
+                                <h3>قسم الطوارئ</h3>
+                                <p>قسم طوارئ مجهز بأحدث التقنيات الطبية على مدار 24 ساعة، يضم فريقاُ من الأطباء والممرضين المتخصصين في التعامل مع الحالات الحرجة والطارئة.</p>
+                                <ul class="tab-features-full">
+                                    <li><i class="fas fa-check-circle"></i> استقبال طوارئ 24/7</li>
+                                    <li><i class="fas fa-check-circle"></i> سيارات إسعاف مجهزة</li>
+                                    <li><i class="fas fa-check-circle"></i> غرف عمليات طوارئ</li>
+                                    <li><i class="fas fa-check-circle"></i> فريق استجابة سريعة</li>
+                                    <li><i class="fas fa-check-circle"></i> وحدة عناية مركزة للطوارئ</li>
+                                    <li><i class="fas fa-check-circle"></i> فحوصات طوارئ فورية</li>
+                                </ul>
+                                <div class="tab-stats-full">
+                                    <div class="tab-stat-full"><span class="tab-stat-number">15</span><span class="tab-stat-label">دقيقة متوسط الاستجابة</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">50+</span><span class="tab-stat-label">سرير طوارئ</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">24/7</span><span class="tab-stat-label">خدمة مستمرة</span></div>
+                                </div>
+                                <a href="tel:19001" class="btn btn-danger emergency-call-btn"><i class="fas fa-phone-alt"></i> اتصل بالطوارئ الآن</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-full" id="icu-full">
+                        <div class="tab-content-grid">
+                            <div class="tab-content-image"><img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&q=80" alt="العناية المركزة"></div>
+                            <div class="tab-content-info">
+                                <h3>قسم العناية المركزة</h3>
+                                <p>وحدات عناية مركزة متخصصة مجهزة بأحدث أجهزة المراقبة والتنفس الصناعي، مع فريق طبي متخصص في رعاية الحالات الحرجة.</p>
+                                <ul class="tab-features-full">
+                                    <li><i class="fas fa-check-circle"></i> مراقبة على مدار الساعة</li>
+                                    <li><i class="fas fa-check-circle"></i> أجهزة تنفس صناعي متطورة</li>
+                                    <li><i class="fas fa-check-circle"></i> عزل ميكروبي متقدم</li>
+                                    <li><i class="fas fa-check-circle"></i> فريق تمريض متخصص</li>
+                                    <li><i class="fas fa-check-circle"></i> وحدة عناية للأطفال</li>
+                                    <li><i class="fas fa-check-circle"></i> وحدة عناية للكبار</li>
+                                </ul>
+                                <div class="tab-stats-full">
+                                    <div class="tab-stat-full"><span class="tab-stat-number">30</span><span class="tab-stat-label">سرير عناية مركزة</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">95%</span><span class="tab-stat-label">نسبة النجاة</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">1:1</span><span class="tab-stat-label">نسبة الممرض للمريض</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-full" id="surgery-full">
+                        <div class="tab-content-grid">
+                            <div class="tab-content-image"><img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&q=80" alt="الجراحة"></div>
+                            <div class="tab-content-info">
+                                <h3>قسم الجراحة</h3>
+                                <p>غرف عمليات مجهزة بأحدث التقنيات الجراحية الروبوتية والمنظارية، مع فريق جراحين متخصصين في مختلف التخصصات.</p>
+                                <ul class="tab-features-full">
+                                    <li><i class="fas fa-check-circle"></i> جراحة روبوتية متطورة</li>
+                                    <li><i class="fas fa-check-circle"></i> جراحة منظارية دقيقة</li>
+                                    <li><i class="fas fa-check-circle"></i> تخدير متقدم وآمن</li>
+                                    <li><i class="fas fa-check-circle"></i> تعقيم على أعلى مستوى</li>
+                                    <li><i class="fas fa-check-circle"></i> غرف عمليات هجينة</li>
+                                    <li><i class="fas fa-check-circle"></i> استشفاء سريع</li>
+                                </ul>
+                                <div class="tab-stats-full">
+                                    <div class="tab-stat-full"><span class="tab-stat-number">12</span><span class="tab-stat-label">غرفة عمليات</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">5000+</span><span class="tab-stat-label">عملية سنوياً</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">99%</span><span class="tab-stat-label">نسبة النجاح</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-full" id="radiology-full">
+                        <div class="tab-content-grid">
+                            <div class="tab-content-image"><img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=600&q=80" alt="الأشعة"></div>
+                            <div class="tab-content-info">
+                                <h3>قسم الأشعة</h3>
+                                <p>أحدث أجهزة التصوير الطبي بما في ذلك MRI وCT Scan والموجات فوق الصوتية ثلاثية الأبعاد، مع تقارير فورية.</p>
+                                <ul class="tab-features-full">
+                                    <li><i class="fas fa-check-circle"></i> MRI 3 تسلا</li>
+                                    <li><i class="fas fa-check-circle"></i> CT Scan متعدد الشرائح</li>
+                                    <li><i class="fas fa-check-circle"></i> أشعة ثلاثية الأبعاد</li>
+                                    <li><i class="fas fa-check-circle"></i> تقارير رقمية فورية</li>
+                                    <li><i class="fas fa-check-circle"></i> تصوير الماموجرام</li>
+                                    <li><i class="fas fa-check-circle"></i> تصوير الأوعية الدموية</li>
+                                </ul>
+                                <div class="tab-stats-full">
+                                    <div class="tab-stat-full"><span class="tab-stat-number">8</span><span class="tab-stat-label">أجهزة تصوير</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">30min</span><span class="tab-stat-label">متوسط وقت التقرير</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">24/7</span><span class="tab-stat-label">خدمة مستمرة</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-full" id="lab-full">
+                        <div class="tab-content-grid">
+                            <div class="tab-content-image"><img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&q=80" alt="المختبر"></div>
+                            <div class="tab-content-info">
+                                <h3>المختبر الطبي</h3>
+                                <p>مختبر متكامل يقدم أكثر من 2000 تحليل مخبري مختلف، مع دقة عالية وسرعة في إصدار النتائج.</p>
+                                <ul class="tab-features-full">
+                                    <li><i class="fas fa-check-circle"></i> تحاليل دم شاملة</li>
+                                    <li><i class="fas fa-check-circle"></i> تحاليل هرمونات</li>
+                                    <li><i class="fas fa-check-circle"></i> فحوصات جينية</li>
+                                    <li><i class="fas fa-check-circle"></i> نتائج رقمية</li>
+                                    <li><i class="fas fa-check-circle"></i> تحاليل ميكروبيولوجية</li>
+                                    <li><i class="fas fa-check-circle"></i> فحوصات الأنسجة</li>
+                                </ul>
+                                <div class="tab-stats-full">
+                                    <div class="tab-stat-full"><span class="tab-stat-number">2000+</span><span class="tab-stat-label">تحليل متاح</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">2hrs</span><span class="tab-stat-label">متوسط وقت النتيجة</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">99.9%</span><span class="tab-stat-label">دقة النتائج</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-full" id="pharmacy-full">
+                        <div class="tab-content-grid">
+                            <div class="tab-content-image"><img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80" alt="الصيدلية"></div>
+                            <div class="tab-content-info">
+                                <h3>الصيدلية</h3>
+                                <p>صيدلية مركزية توفر جميع الأدوية والمستلزمات الطبية، مع صيادلة متخصصين لتقديم الاستشارات الدوائية.</p>
+                                <ul class="tab-features-full">
+                                    <li><i class="fas fa-check-circle"></i> أدوية أصلية 100%</li>
+                                    <li><i class="fas fa-check-circle"></i> استشارات دوائية</li>
+                                    <li><i class="fas fa-check-circle"></i> توصيل للمنازل</li>
+                                    <li><i class="fas fa-check-circle"></i> خصومات خاصة</li>
+                                    <li><i class="fas fa-check-circle"></i> تخزين مثالي للأدوية</li>
+                                    <li><i class="fas fa-check-circle"></i> تتبع الأدوية</li>
+                                </ul>
+                                <div class="tab-stats-full">
+                                    <div class="tab-stat-full"><span class="tab-stat-number">5000+</span><span class="tab-stat-label">دواء متاح</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">24/7</span><span class="tab-stat-label">خدمة مستمرة</span></div>
+                                    <div class="tab-stat-full"><span class="tab-stat-number">30%</span><span class="tab-stat-label">خصم للمرضى المتابعين</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: APPOINTMENTS -->
+        <section id="appointments" class="page-section">
+            <div class="page-hero appointments-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">احجز موعدك</span>
+                    <h1>حجز موعد طبي</h1>
+                    <p>احجز موعدك بسهولة في خطوات بسيطة</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="appointments-full">
+                    <div class="appointment-wrapper">
+                        <div class="appointment-form-section">
+                            <div class="section-header left">
+                                <span class="section-tag">احجز موعدك</span>
+                                <h2 class="section-title">حجز موعد طبي</h2>
+                                <p class="section-subtitle">احجز موعدك بسهولة في خطوات بسيطة</p>
+                            </div>
+                            <form id="appointment-form" class="appointment-form">
+                                <div class="form-row">
+                                    <div class="form-group"><label>الاسم الكامل</label><input type="text" id="app-name" placeholder="أدخل اسمك الكامل" required></div>
+                                    <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="app-phone" placeholder="01xxxxxxxxx" required></div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="app-email" placeholder="example@email.com"></div>
+                                    <div class="form-group"><label>تاريخ الميلاد</label><input type="date" id="app-birthdate" required></div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>التخصص المطلوب</label>
+                                        <select id="app-specialty" required>
+                                            <option value="">اختر التخصص</option>
+                                            <option value="cardiology">قلب وأوعية دموية</option>
+                                            <option value="neurology">مخ وأعصاب</option>
+                                            <option value="orthopedics">عظام</option>
+                                            <option value="pediatrics">أطفال</option>
+                                            <option value="ophthalmology">عيون</option>
+                                            <option value="dentistry">أسنان</option>
+                                            <option value="dermatology">جلدية</option>
+                                            <option value="ent">أنف وأذن وحنجرة</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>الطبيب</label>
+                                        <select id="app-doctor" required>
+                                            <option value="">اختر الطبيب</option>
+                                            <option value="dr-ahmed">د. أحمد محمد - قلب</option>
+                                            <option value="dr-sara">د. سارة أحمد - مخ وأعصاب</option>
+                                            <option value="dr-khaled">د. خالد العلي - عظام</option>
+                                            <option value="dr-nora">د. نورا حسن - أطفال</option>
+                                            <option value="dr-layla">د. ليلى سامي - عيون</option>
+                                            <option value="dr-mahmoud">د. محمود إبراهيم - قلب</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group"><label>التاريخ المفضل</label><input type="date" id="app-date" required></div>
+                                    <div class="form-group">
+                                        <label>الوقت المفضل</label>
+                                        <select id="app-time" required>
+                                            <option value="">اختر الوقت</option>
+                                            <option value="9am">9:00 صباحاُ</option>
+                                            <option value="10am">10:00 صباحاُ</option>
+                                            <option value="11am">11:00 صباحاُ</option>
+                                            <option value="12pm">12:00 ظهراُ</option>
+                                            <option value="2pm">2:00 مساءً</option>
+                                            <option value="3pm">3:00 مساءً</option>
+                                            <option value="4pm">4:00 مساءً</option>
+                                            <option value="5pm">5:00 مساءً</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group full"><label>ملاحظات إضافية</label><textarea id="app-notes" rows="3" placeholder="أي ملاحظات أو أعراض ترغب في ذكرها..."></textarea></div>
+                                <button type="submit" class="submit-btn"><i class="fas fa-calendar-check"></i> تأكيد الحجز</button>
+                            </form>
+                        </div>
+                        <div class="appointment-info">
+                            <div class="info-card"><i class="fas fa-clock"></i><h4>ساعات العمل</h4><p>السبت - الخميس: 8:00 ص - 10:00 م</p><p>الجمعة: 2:00 م - 10:00 م</p><p class="highlight">الطوارئ: 24/7</p></div>
+                            <div class="info-card"><i class="fas fa-phone-alt"></i><h4>اتصل بنا</h4><p>الاستعلامات: 19000</p><p>الطوارئ: 19001</p><p>المواعيد: 19002</p></div>
+                            <div class="info-card"><i class="fas fa-map-marker-alt"></i><h4>الموقع</h4><p>123 شارع النخبة</p><p>القاهرة، مصر</p><a href="https://maps.google.com/?q=123+Elite+Street+Cairo+Egypt" target="_blank" rel="noopener noreferrer" class="directions-link">احصل على الاتجاهات <i class="fas fa-external-link-alt"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: CONTACT -->
+        <section id="contact" class="page-section">
+            <div class="page-hero contact-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">تواصل معنا</span>
+                    <h1>نحن هنا لمساعدتك</h1>
+                    <p>لا تتردد في التواصل معنا لأي استفسار</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="contact-full">
+                    <div class="contact-wrapper">
+                        <div class="contact-info">
+                            <div class="contact-card"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div class="contact-details"><h4>العنوان</h4><p>123 شارع النخبة، القاهرة، مصر</p></div></div>
+                            <div class="contact-card"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><div class="contact-details"><h4>الهاتف</h4><p>19000 - 19001 - 19002</p></div></div>
+                            <div class="contact-card"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-details"><h4>البريد الإلكتروني</h4><p>info@elitecare.com</p></div></div>
+                            <div class="contact-card"><div class="contact-icon"><i class="fas fa-clock"></i></div><div class="contact-details"><h4>ساعات العمل</h4><p>السبت - الخميس: 8 ص - 10 م</p></div></div>
+                            <div class="social-links">
+                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        <div class="contact-form-wrapper">
+                            <form id="contact-form" class="contact-form">
+                                <div class="form-row">
+                                    <div class="form-group"><input type="text" placeholder="الاسم" required></div>
+                                    <div class="form-group"><input type="email" placeholder="البريد الإلكتروني" required></div>
+                                </div>
+                                <div class="form-group"><input type="text" placeholder="الموضوع" required></div>
+                                <div class="form-group"><textarea rows="5" placeholder="رسالتك..." required></textarea></div>
+                                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> إرسال الرسالة</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: FAQ -->
+        <section id="faq" class="page-section">
+            <div class="page-hero faq-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">مركز المساعدة</span>
+                    <h1>الأسئلة الشائعة</h1>
+                    <p>إجابات على أكثر الأسئلة التي تصلنا من مرضانا</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="faq-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="faq-search-input" placeholder="اكتب سؤالك أو كلمة مفتاحية...">
+                </div>
+                <div class="faq-categories" id="faq-categories">
+                    <button class="faq-cat-btn active" data-cat="all">الكل</button>
+                    <button class="faq-cat-btn" data-cat="appointments">المواعيد</button>
+                    <button class="faq-cat-btn" data-cat="account">الحساب</button>
+                    <button class="faq-cat-btn" data-cat="payment">الدفع والتأمين</button>
+                    <button class="faq-cat-btn" data-cat="general">عام</button>
+                </div>
+                <div class="faq-list" id="faq-list"></div>
+                <p class="faq-empty" id="faq-empty" style="display:none;">لا توجد نتائج مطابقة لبحثك</p>
+            </div>
+        </section>
+
+        <!-- PAGE: INSURANCE & PAYMENT -->
+        <section id="insurance" class="page-section">
+            <div class="page-hero insurance-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">التأمين والدفع</span>
+                    <h1>معلومات التأمين وطرق الدفع</h1>
+                    <p>خيارات دفع متعددة وشراكات تأمينية تناسب احتياجك</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="section-header center">
+                    <span class="section-tag">شركات التأمين</span>
+                    <h2 class="section-title">نتعامل مع أكبر شركات التأمين</h2>
+                    <p class="section-subtitle">تحقق من تغطية بوليصتك قبل زيارتك</p>
+                </div>
+                <div class="insurance-partners-grid" id="insurance-partners-grid"></div>
+
+                <div class="section-header center">
+                    <span class="section-tag">طرق الدفع</span>
+                    <h2 class="section-title">ادفع بالطريقة التي تناسبك</h2>
+                    <p class="section-subtitle">دفع آمن وسريع، إلكترونياً أو نقداً</p>
+                </div>
+                <div class="payment-methods-grid" id="payment-methods-grid"></div>
+
+                <div class="payment-demo-card">
+                    <div class="payment-demo-info">
+                        <h3><i class="fas fa-credit-card"></i> جرّب واجهة الدفع الإلكتروني</h3>
+                        <p>عرض توضيحي لواجهة الدفع الخاصة بالموقع — دفع تجريبي بدون بوابة دفع حقيقية</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openPaymentModal()"><i class="fas fa-lock"></i> افتح واجهة الدفع</button>
+                </div>
+
+                <div class="insurance-faq-note">
+                    <i class="fas fa-info-circle"></i>
+                    <p>لأي استفسار حول تغطية بوليصة التأمين الخاصة بك، تواصل مع قسم التأمين على <strong>19002</strong> أو راجع <a href="#" onclick="navigateToPage('faq');return false;">الأسئلة الشائعة</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: BLOG -->
+        <section id="blog" class="page-section">
+            <div class="page-hero blog-hero">
+                <div class="page-hero-overlay"></div>
+                <div class="page-hero-content">
+                    <span class="page-hero-tag">المدونة الصحية</span>
+                    <h1>مقالات ونصائح صحية</h1>
+                    <p>محتوى موثوق من فريقنا الطبي لمساعدتك على حياة أكثر صحة</p>
+                </div>
+            </div>
+            <div class="container page-container">
+                <div class="blog-categories" id="blog-categories">
+                    <button class="faq-cat-btn active" data-cat="all">الكل</button>
+                    <button class="faq-cat-btn" data-cat="heart">قلب</button>
+                    <button class="faq-cat-btn" data-cat="nutrition">تغذية</button>
+                    <button class="faq-cat-btn" data-cat="child">أطفال</button>
+                    <button class="faq-cat-btn" data-cat="mental">صحة نفسية</button>
+                </div>
+                <div class="blog-grid" id="blog-grid"></div>
+            </div>
+        </section>
+
+        <!-- PAGE: ADMIN DASHBOARD (accessible only after logging in with the admin email/password) -->
+        <section id="admin-dashboard" class="page-section admin-dashboard-section">
+            <div class="admin-layout">
+                <aside class="admin-sidebar">
+                    <div class="admin-logo">
+                        <i class="fas fa-hospital-alt"></i>
+                        <div class="logo-text">
+                            <span class="logo-main">Elite Care</span>
+                            <span class="logo-sub">لوحة تحكم المدير</span>
+                        </div>
+                    </div>
+                    <nav class="admin-nav">
+                        <button class="admin-nav-btn active" data-admin-tab="overview"><i class="fas fa-chart-pie"></i> نظرة عامة</button>
+                        <button class="admin-nav-btn" data-admin-tab="doctors"><i class="fas fa-user-md"></i> الأطباء</button>
+                        <button class="admin-nav-btn" data-admin-tab="services"><i class="fas fa-stethoscope"></i> الخدمات</button>
+                        <button class="admin-nav-btn" data-admin-tab="appointments"><i class="fas fa-calendar-check"></i> الحجوزات</button>
+                        <button class="admin-nav-btn" data-admin-tab="users"><i class="fas fa-users"></i> المستخدمين</button>
+                        <button class="admin-nav-btn" data-admin-tab="reviews"><i class="fas fa-star"></i> التقييمات</button>
+                    </nav>
+                    <div class="admin-sidebar-footer">
+                        <a href="#home" data-page="home" class="admin-back-site"><i class="fas fa-arrow-right"></i> رجوع للموقع</a>
+                        <button id="admin-logout-btn" class="admin-logout-btn"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</button>
+                    </div>
+                </aside>
+
+                <main class="admin-main">
+                    <header class="admin-topbar">
+                        <h1 id="admin-tab-title">نظرة عامة</h1>
+                        <span class="admin-badge"><i class="fas fa-user-shield"></i> المدير</span>
+                    </header>
+
+                    <!-- Overview -->
+                    <div class="admin-tab-content active" id="admin-tab-overview">
+                        <div class="admin-stats-grid" id="admin-stats-grid"></div>
+                    </div>
+
+                    <!-- Doctors CRUD -->
+                    <div class="admin-tab-content" id="admin-tab-doctors">
+                        <div class="admin-tab-actions"><button class="btn btn-primary" id="add-doctor-btn"><i class="fas fa-plus"></i> إضافة طبيب</button></div>
+                        <div class="admin-table-wrap">
+                            <table class="admin-table" id="admin-doctors-table">
+                                <thead><tr><th>الصورة</th><th>الاسم</th><th>التخصص</th><th>التقييم</th><th>إجراءات</th></tr></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Services CRUD -->
+                    <div class="admin-tab-content" id="admin-tab-services">
+                        <div class="admin-tab-actions"><button class="btn btn-primary" id="add-service-btn"><i class="fas fa-plus"></i> إضافة خدمة</button></div>
+                        <div class="admin-table-wrap">
+                            <table class="admin-table" id="admin-services-table">
+                                <thead><tr><th>الأيقونة</th><th>اسم الخدمة</th><th>الوصف المختصر</th><th>إجراءات</th></tr></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Appointments -->
+                    <div class="admin-tab-content" id="admin-tab-appointments">
+                        <div class="admin-table-wrap">
+                            <table class="admin-table" id="admin-appointments-table">
+                                <thead><tr><th>المريض</th><th>البريد الإلكتروني</th><th>الخدمة</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Users -->
+                    <div class="admin-tab-content" id="admin-tab-users">
+                        <div class="admin-table-wrap">
+                            <table class="admin-table" id="admin-users-table">
+                                <thead><tr><th>الاسم</th><th>البريد الإلكتروني</th><th>الهاتف</th><th>تاريخ التسجيل</th><th>إجراءات</th></tr></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Reviews -->
+                    <div class="admin-tab-content" id="admin-tab-reviews">
+                        <div class="admin-table-wrap">
+                            <table class="admin-table" id="admin-reviews-table">
+                                <thead><tr><th>الاسم</th><th>التقييم</th><th>التعليق</th></tr></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </section>
+    </main>
+
+    <!-- Admin: Add/Edit Doctor Modal -->
+    <div id="admin-doctor-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-user-md"></i>
+                    <h2 id="admin-doctor-modal-title">إضافة طبيب جديد</h2>
+                </div>
+                <form id="admin-doctor-form" class="login-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>اسم الطبيب</label>
+                            <input type="text" id="doc-name" placeholder="د. اسم الطبيب" required>
+                        </div>
+                        <div class="form-group">
+                            <label>التخصص الدقيق</label>
+                            <select id="doc-category" required>
+                                <option value="cardiology">قلب وأوعية</option>
+                                <option value="neurology">مخ وأعصاب</option>
+                                <option value="orthopedics">عظام</option>
+                                <option value="pediatrics">أطفال</option>
+                                <option value="ophthalmology">عيون</option>
+                                <option value="dentistry">أسنان</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>الوصف الوظيفي (يظهر تحت الاسم)</label>
+                        <input type="text" id="doc-specialty" placeholder="استشاري جراحة القلب" required>
+                    </div>
+                    <div class="form-group">
+                        <label>رابط صورة الطبيب</label>
+                        <input type="url" id="doc-image" placeholder="https://...">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>التقييم (من 5)</label>
+                            <input type="number" id="doc-rating" min="1" max="5" step="0.1" value="5.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>عدد التقييمات</label>
+                            <input type="number" id="doc-rating-count" min="0" value="0" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>المؤهل العلمي</label>
+                        <input type="text" id="doc-degree" placeholder="دكتوراه من جامعة...">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>سنوات الخبرة</label>
+                            <input type="text" id="doc-experience" placeholder="15+ سنة خبرة">
+                        </div>
+                        <div class="form-group">
+                            <label>اللغات</label>
+                            <input type="text" id="doc-languages" placeholder="العربية - الإنجليزية">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>أيام العمل</label>
+                            <input type="text" id="doc-schedule-day" placeholder="السبت - الأربعاء">
+                        </div>
+                        <div class="form-group">
+                            <label>ساعات العمل</label>
+                            <input type="text" id="doc-schedule-time" placeholder="9:00 ص - 2:00 م">
+                        </div>
+                    </div>
+                    <button type="submit" class="login-btn"><span>حفظ</span><i class="fas fa-check"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin: Add/Edit Service Modal -->
+    <div id="admin-service-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-stethoscope"></i>
+                    <h2 id="admin-service-modal-title">إضافة خدمة جديدة</h2>
+                </div>
+                <form id="admin-service-form" class="login-form">
+                    <div class="form-group">
+                        <label>اسم الخدمة</label>
+                        <input type="text" id="svc-title" placeholder="مثال: طب الأسنان" required>
+                    </div>
+                    <div class="form-group">
+                        <label>أيقونة Font Awesome (بدون fas)</label>
+                        <input type="text" id="svc-icon" placeholder="مثال: fa-tooth" required>
+                    </div>
+                    <div class="form-group">
+                        <label>وصف مختصر (يظهر بالصفحة الرئيسية)</label>
+                        <input type="text" id="svc-short-desc" placeholder="وصف قصير للخدمة" required>
+                    </div>
+                    <div class="form-group">
+                        <label>الوصف الكامل (يظهر بصفحة الخدمات)</label>
+                        <textarea id="svc-full-desc" rows="3" placeholder="وصف تفصيلي للخدمة" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>المميزات (كل نقطة في سطر منفصل)</label>
+                        <textarea id="svc-features" rows="4" placeholder="نقطة أولى&#10;نقطة ثانية&#10;نقطة ثالثة"></textarea>
+                    </div>
+                    <button type="submit" class="login-btn"><span>حفظ</span><i class="fas fa-check"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <div class="footer-logo"><i class="fas fa-hospital-alt"></i><div><span class="footer-logo-main">Elite Care</span><span class="footer-logo-sub">مستشفى النخبة الطبية</span></div></div>
+                        <p>نقدم رعاية صحية متميزة بأحدث التقنيات العالمية وفريق طبي متخصص على مدار 24 ساعة.</p>
+                        <div class="footer-contact"><p><i class="fas fa-phone-alt"></i> 19000</p><p><i class="fas fa-envelope"></i> info@elitecare.com</p></div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>روابط سريعة</h4>
+                        <ul class="footer-links">
+                            <li><a href="#about" data-page="about">عن المستشفى</a></li>
+                            <li><a href="#services" data-page="services">خدماتنا</a></li>
+                            <li><a href="#doctors" data-page="doctors">الأطباء</a></li>
+                            <li><a href="#appointments" data-page="appointments">الحجوزات</a></li>
+                            <li><a href="#contact" data-page="contact">تواصل معنا</a></li>
+                            <li><a href="#blog" data-page="blog">المدونة الصحية</a></li>
+                            <li><a href="#faq" data-page="faq">الأسئلة الشائعة</a></li>
+                            <li><a href="#insurance" data-page="insurance">التأمين والدفع</a></li>
+                            <li><a href="#" onclick="openReviewModal();return false;">قيّم تجربتك معنا</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>خدماتنا</h4>
+                        <ul class="footer-links">
+                            <li><a href="#services" data-page="services">قلب وأوعية دموية</a></li>
+                            <li><a href="#services" data-page="services">مخ وأعصاب</a></li>
+                            <li><a href="#services" data-page="services">جراحة العظام</a></li>
+                            <li><a href="#services" data-page="services">طب الأطفال</a></li>
+                            <li><a href="#services" data-page="services">طب العيون</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك للحصول على آخر الأخبار والعروض الصحية</p>
+                        <form class="newsletter-form"><input type="email" placeholder="بريدك الإلكتروني"><button type="submit"><i class="fas fa-paper-plane"></i></button></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2026 Elite Care Hospital. جميع الحقوق محفوظة.</p>
+                <div class="footer-bottom-links"><a href="#privacy" onclick="showPrivacy(); return false;">سياسة الخصوصية</a><a href="#terms" onclick="showTerms(); return false;">شروط الاستخدام</a><a href="#sitemap" onclick="showSitemap(); return false;">خريطة الموقع</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+    <!-- Floating Emergency Button -->
+    <button class="floating-emergency" id="floating-emergency-btn">
+        <i class="fas fa-phone-alt"></i>
+        <span>طوارئ</span>
+    </button>
+
+    <!-- Floating WhatsApp Button -->
+    <a class="floating-whatsapp" id="floating-whatsapp-btn" href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%88%D8%B9%D8%AF" target="_blank" rel="noopener noreferrer" title="تواصل معنا عبر واتساب">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">تواصل معنا واتساب</span>
+    </a>
+
+    <script src="js/app.js"></script>
+
+    <!-- Terms Modal -->
+    <div id="terms-modal" class="modal">
+        <div class="modal-content info-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="info-container">
+                <div class="info-header">
+                    <i class="fas fa-file-contract"></i>
+                    <h2>شروط الاستخدام</h2>
+                </div>
+                <div class="info-body">
+                    <h3>1. قبول الشروط</h3>
+                    <p>باستخدامك لموقع مستشفى النخبة الطبية، فإنك توافق على الالتزام بهذه الشروط والأحكام. إذا كنت لا توافق على أي جزء من هذه الشروط، يجب عليك عدم استخدام الموقع.</p>
+
+                    <h3>2. استخدام الموقع</h3>
+                    <p>يُسمح لك باستخدام الموقع للأغراض الشخصية والغير تجارية فقط. يُمنع استخدام الموقع لأي غرض غير قانوني أو محظور.</p>
+
+                    <h3>3. حجز المواعيد</h3>
+                    <p>جميع المواعيد المُحجزة عبر الموقع تخضع للتوفر. نحتفظ بالحق في إلغاء أو إعادة جدولة أي موعد في حالات الطوارئ.</p>
+
+                    <h3>4. المحتوى الطبي</h3>
+                    <p>المحتوى المقدم على الموقع هو لأغراض إعلامية فقط ولا يُعتبر بديلاً عن الاستشارة الطبية المهنية. استشر طبيبك دائماً قبل اتخاذ أي قرار طبي.</p>
+
+                    <h3>5. الخصوصية</h3>
+                    <p>نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية وفقاً لسياسة الخصوصية الخاصة بنا.</p>
+
+                    <h3>6. التعديلات</h3>
+                    <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت. يُنصح بمراجعة هذه الصفحة بشكل دوري.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content info-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="info-container">
+                <div class="info-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>سياسة الخصوصية</h2>
+                </div>
+                <div class="info-body">
+                    <h3>1. جمع المعلومات</h3>
+                    <p>نقوم بجمع المعلومات الشخصية التي تقدمها لنا طوعاً عند التسجيل أو حجز موعد، بما في ذلك الاسم، البريد الإلكتروني، رقم الهاتف، ومعلومات صحية أساسية.</p>
+
+                    <h3>2. استخدام المعلومات</h3>
+                    <p>نستخدم معلوماتك لتقديم خدمات الرعاية الصحية، إدارة المواعيد، التواصل معك، وتحسين خدماتنا.</p>
+
+                    <h3>3. حماية البيانات</h3>
+                    <p>نستخدم تقنيات أمان متقدمة لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الكشف.</p>
+
+                    <h3>4. مشاركة المعلومات</h3>
+                    <p>لا نبيع أو نشارك معلوماتك الشخصية مع أطراف ثالثة إلا بموافقتك أو عند الضرورة القانونية.</p>
+
+                    <h3>5. حقوقك</h3>
+                    <p>للك الحق في الوصول إلى بياناتك، تصحيحها، أو حذفها. يمكنك التواصل معنا لأي استفسارات حول خصوصيتك.</p>
+
+                    <h3>6. ملفات تعريف الارتباط</h3>
+                    <p>نستخدم ملفات تعريف الارتباط لتحسين تجربتك على الموقع. يمكنك ضبط إعدادات المتصفح لرفضها إذا رغبت.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sitemap Modal -->
+    <div id="sitemap-modal" class="modal">
+        <div class="modal-content info-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="info-container">
+                <div class="info-header">
+                    <i class="fas fa-sitemap"></i>
+                    <h2>خريطة الموقع</h2>
+                </div>
+                <div class="info-body sitemap-body">
+                    <div class="sitemap-grid">
+                        <div class="sitemap-section">
+                            <h4><i class="fas fa-home"></i> الرئيسية</h4>
+                            <ul>
+                                <li><a href="#home" data-page="home" onclick="closeAllModals();navigateToPage('home')">الصفحة الرئيسية</a></li>
+                                <li><a href="#about" data-page="about" onclick="closeAllModals();navigateToPage('about')">عن المستشفى</a></li>
+                            </ul>
+                        </div>
+                        <div class="sitemap-section">
+                            <h4><i class="fas fa-stethoscope"></i> الخدمات</h4>
+                            <ul>
+                                <li><a href="#services" data-page="services" onclick="closeAllModals();navigateToPage('services')">جميع الخدمات</a></li>
+                                <li><a href="#doctors" data-page="doctors" onclick="closeAllModals();navigateToPage('doctors')">فريق الأطباء</a></li>
+                                <li><a href="#departments" data-page="departments" onclick="closeAllModals();navigateToPage('departments')">الأقسام الطبية</a></li>
+                            </ul>
+                        </div>
+                        <div class="sitemap-section">
+                            <h4><i class="fas fa-user"></i> المريض</h4>
+                            <ul>
+                                <li><a href="#appointments" data-page="appointments" onclick="closeAllModals();navigateToPage('appointments')">حجز موعد</a></li>
+                                <li><a href="#" onclick="closeAllModals();openAuthModal();return false;">تسجيل الدخول</a></li>
+                                <li><a href="#" onclick="closeAllModals();openProfileModal();return false;">الملف الشخصي</a></li>
+                            </ul>
+                        </div>
+                        <div class="sitemap-section">
+                            <h4><i class="fas fa-phone-alt"></i> تواصل معنا</h4>
+                            <ul>
+                                <li><a href="#contact" data-page="contact" onclick="closeAllModals();navigateToPage('contact')">صفحة التواصل</a></li>
+                                <li><a href="tel:19001">اتصل بالطوارئ</a></li>
+                                <li><a href="mailto:info@elitecare.com">البريد الإلكتروني</a></li>
+                            </ul>
+                        </div>
+                        <div class="sitemap-section">
+                            <h4><i class="fas fa-info-circle"></i> معلومات</h4>
+                            <ul>
+                                <li><a href="#terms" onclick="closeAllModals();showTerms();return false;">شروط الاستخدام</a></li>
+                                <li><a href="#privacy" onclick="closeAllModals();showPrivacy();return false;">سياسة الخصوصية</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-key"></i>
+                    <h2>استعادة كلمة المرور</h2>
+                    <p>أدخل بريدك الإلكتروني لإرسال رابط استعادة كلمة المرور</p>
+                </div>
+                <form id="forgot-form" class="login-form">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                        <input type="email" id="forgot-email" placeholder="example@email.com" required>
+                    </div>
+                    <button type="submit" class="login-btn"><span>إرسال رابط الاستعادة</span><i class="fas fa-paper-plane"></i></button>
+                </form>
+                <p class="register-link"><a href="#" onclick="closeForgotModal();openAuthModal();return false;">العودة لتسجيل الدخول</a></p>
+            </div>
+        </div>
+    </div>
+<script src="app.js"></script>
+</body>
+</html>
